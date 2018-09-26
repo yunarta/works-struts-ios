@@ -1,0 +1,4 @@
+github "SwifterSwift/SwifterSwift" "master"
+github "realm/realm-cocoa"
+github "RxSwiftCommunity/RxRealm"
+github "ReactiveX/RxSwift"
