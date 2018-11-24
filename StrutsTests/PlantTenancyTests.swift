@@ -11,7 +11,7 @@ import XCTest
 
 class PlantTenancyTests: XCTestCase {
 
-    typealias CoreSchaftImplWithRealm = CoreSchaftImpl<RealmSchaftCredentialManager<RealmShortCredential>>
+    typealias CoreStrutImplWithRealm = CoreStrutImpl<RealmStrutCredentialManager<RealmShortCredential>>
 
     override func setUp() {
         super.setUp()
@@ -23,38 +23,38 @@ class PlantTenancyTests: XCTestCase {
         super.tearDown()
     }
 
-    func testDiscoverSchaft() throws {
+    func testDiscoverStrut() throws {
         let factory = RealmCredentialManagerFactory(app: "Plant")
         let plant = try PlantBuilder(credentialManager: factory.createPlantManager())
-            .add(resident: CoreSchaftImplWithRealm(credentialManager: factory.createSchaftManager(id: "app", for: RealmShortCredential.self)), withId: "app")
+            .add(resident: CoreStrutImplWithRealm(credentialManager: factory.createStrutManager(id: "app", for: RealmShortCredential.self)), withId: "app")
             .build()
 
         // test get without type reference
-        XCTAssertNotNil(plant.discover(schaft: .core(id: "app")))
+        XCTAssertNotNil(plant.discover(strut: .core(id: "app")))
 
         // test get with type reference
-        let schaft: Schaft? = plant.discover(schaft: .core(id: "app"))
-        XCTAssertNotNil(schaft)
+        let strut: Strut? = plant.discover(strut: .core(id: "app"))
+        XCTAssertNotNil(strut)
 
         // test get with subtype reference
-        let coreSchaft: CoreSchaft? = plant.discover(core: .core(id: "app"))
-        XCTAssertNotNil(coreSchaft)
+        let coreStrut: CoreStrut? = plant.discover(core: .core(id: "app"))
+        XCTAssertNotNil(coreStrut)
     }
 
-    func testDiscoverSubSchaft() throws {
+    func testDiscoverSubStrut() throws {
         let factory = RealmCredentialManagerFactory(app: "Plant")
 
-        let coreSchaft = try CoreSchaftImplWithRealm(credentialManager: factory.createSchaftManager(id: "app", for: RealmShortCredential.self))
-        coreSchaft.shafts["1"] = SchaftImpl()
+        let coreStrut = try CoreStrutImplWithRealm(credentialManager: factory.createStrutManager(id: "app", for: RealmShortCredential.self))
+        coreStrut.struts["1"] = StrutImpl()
 
         let plant = try PlantBuilder(credentialManager: factory.createPlantManager())
-            .add(resident: coreSchaft, withId: "app")
+            .add(resident: coreStrut, withId: "app")
             .build()
 
-        let schaft: CoreSchaft? = plant.discover(core: .core(id: "app"))
-        XCTAssertNotNil(schaft)
+        let strut: CoreStrut? = plant.discover(core: .core(id: "app"))
+        XCTAssertNotNil(strut)
 
-        let schaftOne: Schaft? = plant.discover(schaft: .schaft(owner: "app", id: "1"))
-        XCTAssertNotNil(schaftOne)
+        let strutOne: Strut? = plant.discover(strut: .strut(owner: "app", id: "1"))
+        XCTAssertNotNil(strutOne)
     }
 }

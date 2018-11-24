@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		991B6F4D2158088700D35168 /* EndPointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991B6F4C2158088700D35168 /* EndPointTests.swift */; };
 		99695F9D21561DD3005D0610 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99695F9C21561DD3005D0610 /* RxBlocking.framework */; };
-		9974EAA1214EC316002F9DF9 /* Orchestrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9974EAA0214EC316002F9DF9 /* Orchestrator.swift */; };
-		9974EAA3214EC3A6002F9DF9 /* WorkProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9974EAA2214EC3A6002F9DF9 /* WorkProcess.swift */; };
 		99A06DE92151682400AD9F0F /* SwifterSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99A06DE82151682400AD9F0F /* SwifterSwift.framework */; };
 		99A06DF321516FB100AD9F0F /* Struts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99A59E6E21497F7B00CD9BBD /* Struts.framework */; };
 		99A06DFA21516FDD00AD9F0F /* PlantTenancyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A06DF921516FDD00AD9F0F /* PlantTenancyTests.swift */; };
@@ -50,8 +48,6 @@
 /* Begin PBXFileReference section */
 		991B6F4C2158088700D35168 /* EndPointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointTests.swift; sourceTree = "<group>"; };
 		99695F9C21561DD3005D0610 /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBlocking.framework; path = Carthage/Build/iOS/RxBlocking.framework; sourceTree = "<group>"; };
-		9974EAA0214EC316002F9DF9 /* Orchestrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Orchestrator.swift; sourceTree = "<group>"; };
-		9974EAA2214EC3A6002F9DF9 /* WorkProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkProcess.swift; sourceTree = "<group>"; };
 		99A06DE82151682400AD9F0F /* SwifterSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwifterSwift.framework; path = Carthage/Build/iOS/SwifterSwift.framework; sourceTree = "<group>"; };
 		99A06DEE21516FB100AD9F0F /* StrutsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StrutsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		99A06DF221516FB100AD9F0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -106,22 +102,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9974EA9E214EC2ED002F9DF9 /* Orchestrator */ = {
-			isa = PBXGroup;
-			children = (
-				9974EAA0214EC316002F9DF9 /* Orchestrator.swift */,
-			);
-			path = Orchestrator;
-			sourceTree = "<group>";
-		};
-		9974EA9F214EC2FD002F9DF9 /* WorkProcess */ = {
-			isa = PBXGroup;
-			children = (
-				9974EAA2214EC3A6002F9DF9 /* WorkProcess.swift */,
-			);
-			path = WorkProcess;
-			sourceTree = "<group>";
-		};
 		99A06DE5215164E600AD9F0F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -175,10 +155,8 @@
 				CEB4E565AC049DB35D8F1DA8 /* Locator.swift */,
 				CEB4E67EAA5DF5A38CAC4397 /* Plant.swift */,
 				CEB4EE3EEBDFDB57C0AFD1D9 /* Schaft.swift */,
-				9974EA9E214EC2ED002F9DF9 /* Orchestrator */,
 				CEB4EC988A9A7459669AE0A4 /* Realm */,
 				CEB4EB3A7C7918D5E7BFEA74 /* Utilities */,
-				9974EA9F214EC2FD002F9DF9 /* WorkProcess */,
 			);
 			path = Struts;
 			sourceTree = "<group>";
@@ -268,7 +246,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0940;
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "mobilesolution works";
 				TargetAttributes = {
 					99A06DED21516FB100AD9F0F = {
@@ -339,7 +317,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "carthage copy-frameworks\n";
+			shellScript = "$HOME/Applications/homebrew/bin/carthage copy-frameworks\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -360,8 +338,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9974EAA3214EC3A6002F9DF9 /* WorkProcess.swift in Sources */,
-				9974EAA1214EC316002F9DF9 /* Orchestrator.swift in Sources */,
 				CEB4E0D8B8CB65482C3AFC52 /* Plant.swift in Sources */,
 				CEB4EE9C425FA121F10B0794 /* Schaft.swift in Sources */,
 				CEB4E50A2FA5CD284CF05A94 /* CredentialManager.swift in Sources */,
@@ -553,7 +529,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = J4UX2U329B;

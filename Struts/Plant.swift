@@ -10,15 +10,15 @@ public protocol Plant {
 
     var credentialManager: PlantCredentialManager { get }
 
-    func discover(schaft: Discovery) -> Schaft?
+    func discover(strut: Discovery) -> Strut?
 }
 
 public extension Plant {
 
-    public func discover(core: Discovery) -> CoreSchaft? {
-        return self.discover(schaft: core).flatMap { schaft -> CoreSchaft? in
-            assert(schaft is CoreSchaft)
-            return schaft as? CoreSchaft
+    public func discover(core: Discovery) -> CoreStrut? {
+        return self.discover(strut: core).flatMap { strut -> CoreStrut? in
+            assert(strut is CoreStrut)
+            return strut as? CoreStrut
         }
     }
 }
@@ -27,15 +27,15 @@ public class PlantBuilder {
 
     var credentialManager: PlantCredentialManager
 
-    var residents = Dictionary<String, CoreSchaft>()
+    var residents = Dictionary<String, CoreStrut>()
 
     public init(credentialManager: PlantCredentialManager) {
         self.credentialManager = credentialManager
     }
 
-    public func add<CS>(resident: CS, withId id: String) -> Self where CS: CoreSchaft {
+    public func add<CS>(resident: CS, withId id: String) -> Self where CS: CoreStrut {
         assert(false == residents.keys.contains(id))
-        residents[id] = CoreSchaftFacade<CS>(resident)
+        residents[id] = CoreStrutFacade<CS>(resident)
 
         return self
     }
@@ -50,19 +50,16 @@ public class PlantBuilder {
 
 class PlantImpl: Plant {
 
-    let residents: [String: CoreSchaft]
+    let residents: [String: CoreStrut]
     private(set) var credentialManager: PlantCredentialManager
 
-    init(
-        credentialManager: PlantCredentialManager,
-        residents: [String: CoreSchaft]
-    ) {
+    init(credentialManager: PlantCredentialManager, residents: [String: CoreStrut]) {
         self.credentialManager = credentialManager
         self.residents = residents
     }
 
-    func discover(schaft: Discovery) -> Schaft? {
-        switch schaft {
+    func discover(strut: Discovery) -> Strut? {
+        switch strut {
         case .core(let id):
             let resident = residents[id]
             assert(resident != nil)
@@ -70,22 +67,22 @@ class PlantImpl: Plant {
             return resident
 
 
-        case .schaft(let owner, let id):
+        case .strut(let owner, let id):
             let resident = residents[owner]
             assert(resident != nil)
 
-            return resident?.shafts[id]
+            return resident?.struts[id]
         }
     }
 
 
-//    func get<S>(schaft: Discovery, withType of: S.Type) throws -> S where S: Schaft {
-//        guard let discovery: Schaft = discover(schaft: schaft) else {
-//            throw PlantError.discoveryFailed(reason: "not struts with discovery \(schaft) can be found")
+//    func get<S>(strut: Discovery, withType of: S.Type) throws -> S where S: Strut {
+//        guard let discovery: Strut = discover(strut: strut) else {
+//            throw PlantError.discoveryFailed(reason: "not struts with discovery \(strut) can be found")
 //        }
 //
 //        guard let instance = discovery as? S else {
-//            throw PlantError.discoveryFailed(reason: "struts with discovery \(schaft) is no \(S.self), but instead \(type(of: discovery))")
+//            throw PlantError.discoveryFailed(reason: "struts with discovery \(strut) is no \(S.self), but instead \(type(of: discovery))")
 //        }
 //
 //        return instance
@@ -95,7 +92,7 @@ class PlantImpl: Plant {
 public enum Discovery {
 
     case core(id: String)
-    case schaft(owner: String, id: String)
+    case strut(owner: String, id: String)
 }
 
 public enum PlantError: Error {

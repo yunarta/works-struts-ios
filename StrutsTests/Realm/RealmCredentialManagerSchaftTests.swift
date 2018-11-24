@@ -12,11 +12,11 @@ import RealmSwift
 import RxSwift
 import RxBlocking
 
-class RealmCredentialManagerSchaftTests: XCTestCase {
+class RealmCredentialManagerStrutTests: XCTestCase {
 
-    typealias CoreSchaftImplWithRealm = CoreSchaftImpl<RealmSchaftCredentialManager<RealmShortCredential>>
+    typealias CoreStrutImplWithRealm = CoreStrutImpl<RealmStrutCredentialManager<RealmShortCredential>>
 
-    func testDiscoverSchaft() throws {
+    func testDiscoverStrut() throws {
         var configuration = Realm.Configuration()
         configuration.inMemoryIdentifier = "Beryl-credential"
 
@@ -27,11 +27,11 @@ class RealmCredentialManagerSchaftTests: XCTestCase {
 
         let factory = RealmCredentialManagerFactory(app: "Plant")
         let plant = try PlantBuilder(credentialManager: factory.createPlantManager())
-            .add(resident: CoreSchaftImplWithRealm(credentialManager: factory.createSchaftManager(id: "Beryl", for: RealmShortCredential.self)), withId: "Beryl")
+            .add(resident: CoreStrutImplWithRealm(credentialManager: factory.createStrutManager(id: "Beryl", for: RealmShortCredential.self)), withId: "Beryl")
             .build()
 
-        let coreSchaft: CoreSchaft = plant.discover(core: .core(id: "Beryl"))!
-        let credential: ShortCredential = try coreSchaft.credentialManager.get(id: "manager-one").toBlocking().first()!
+        let coreStrut: CoreStrut = plant.discover(core: .core(id: "Beryl"))!
+        let credential: ShortCredential = try coreStrut.credentialManager.get(id: "manager-one").toBlocking().first()!
         XCTAssertEqual("Manager One", credential.get("name"))
     }
 }

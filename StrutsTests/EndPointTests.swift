@@ -11,7 +11,7 @@ import Struts
 
 class EndPointTests: XCTestCase {
 
-    typealias CoreSchaftImplWithRealm = CoreSchaftImpl<RealmSchaftCredentialManager<RealmShortCredential>>
+    typealias CoreStrutImplWithRealm = CoreStrutImpl<RealmStrutCredentialManager<RealmShortCredential>>
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -28,18 +28,18 @@ class EndPointTests: XCTestCase {
         
         let factory = RealmCredentialManagerFactory(app: "Plant")
 
-        let coreSchaft = try CoreSchaftImplWithRealm(credentialManager: factory.createSchaftManager(id: "app", for: RealmShortCredential.self))
-        coreSchaft.addEndPoint(TestEndPoint.self, impl: TestEndPoint())
+        let coreStrut = try CoreStrutImplWithRealm(credentialManager: factory.createStrutManager(id: "app", for: RealmShortCredential.self))
+        coreStrut.addEndPoint(TestEndPoint.self, impl: TestEndPoint())
 
         let plant = try PlantBuilder(credentialManager: factory.createPlantManager())
-            .add(resident: coreSchaft, withId: "app")
+            .add(resident: coreStrut, withId: "app")
             .build()
 
         // test get without type reference
-        let schaft: CoreSchaft? = plant.discover(core: .core(id: "app"))
+        let strut: CoreStrut? = plant.discover(core: .core(id: "app"))
 
-        XCTAssertNotNil(schaft?.endPoint(TestEndPoint.self))
-        XCTAssertNil(schaft?.endPoint(UnregisteredEndPoint.self))
+        XCTAssertNotNil(strut?.endPoint(TestEndPoint.self))
+        XCTAssertNil(strut?.endPoint(UnregisteredEndPoint.self))
     }
 
     func testGetEndPoint() throws {
@@ -49,17 +49,17 @@ class EndPointTests: XCTestCase {
 
         let factory = RealmCredentialManagerFactory(app: "Plant")
 
-        let coreSchaft = try CoreSchaftImplWithRealm(credentialManager: factory.createSchaftManager(id: "app", for: RealmShortCredential.self))
-        coreSchaft.addEndPoint(TestEndPoint.self, impl: TestEndPoint())
+        let coreStrut = try CoreStrutImplWithRealm(credentialManager: factory.createStrutManager(id: "app", for: RealmShortCredential.self))
+        coreStrut.addEndPoint(TestEndPoint.self, impl: TestEndPoint())
 
         let plant = try PlantBuilder(credentialManager: factory.createPlantManager())
-            .add(resident: coreSchaft, withId: "app")
+            .add(resident: coreStrut, withId: "app")
             .build()
 
         // test get without type reference
-        let schaft: CoreSchaft? = plant.discover(core: .core(id: "app"))
+        let strut: CoreStrut? = plant.discover(core: .core(id: "app"))
 
-        XCTAssertNotNil(try schaft?.getEndPoint(TestEndPoint.self))
-        XCTAssertThrowsError(try schaft?.getEndPoint(UnregisteredEndPoint.self))
+        XCTAssertNotNil(try strut?.getEndPoint(TestEndPoint.self))
+        XCTAssertThrowsError(try strut?.getEndPoint(UnregisteredEndPoint.self))
     }
 }

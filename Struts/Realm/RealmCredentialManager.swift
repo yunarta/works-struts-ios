@@ -17,7 +17,7 @@ public class RealmPlantCredentialManager: PlantCredentialManager {
     }
 }
 
-public class RealmCredentialResolver<Credential>: SchaftCredentialResolver where Credential: Object & ShortCredential {
+public class RealmCredentialResolver<Credential>: StrutCredentialResolver where Credential: Object & ShortCredential {
 
     let configuration: Realm.Configuration
 
@@ -42,13 +42,12 @@ public class RealmCredentialResolver<Credential>: SchaftCredentialResolver where
             return Disposables.create()
         }
     }
-
 }
 
-public class RealmSchaftCredentialManager<Credential>: InternalSchaftCredentialManager
+public class RealmStrutCredentialManager<Credential>: InternalStrutCredentialManager
     where Credential: Object & ShortCredential {
 
-    typealias StaticSelf = RealmSchaftCredentialManager<Credential>
+    typealias StaticSelf = RealmStrutCredentialManager<Credential>
 
     let reference: Realm
 
@@ -104,6 +103,24 @@ public class RealmSchaftCredentialManager<Credential>: InternalSchaftCredentialM
             }
 
             return Disposables.create()
+        }
+    }
+
+    public func observe(id: String) -> Observable<ShortCredential> {
+        return Observable.deferred {
+            do {
+                let realm = try Realm(configuration: self.configuration)
+
+                if let credential = realm.object(ofType: Credential.self, forPrimaryKey: id) {
+                    return Observable.from(object: credential).map { credential in
+                        return credential
+                    }
+                } else {
+                    return Observable.empty()
+                }
+            } catch {
+                return Observable.error(error)
+            }
         }
     }
 
@@ -173,7 +190,7 @@ public class RealmCredentialManagerFactory {
         return try RealmPlantCredentialManager(configuration)
     }
 
-    public func createSchaftManager<Credential>(id: String, for _: Credential.Type, inMemory: Bool = true) throws -> RealmSchaftCredentialManager<Credential>
+    public func createStrutManager<Credential>(id: String, for _: Credential.Type, inMemory: Bool = true) throws -> RealmStrutCredentialManager<Credential>
         where Credential: Object & ShortCredential {
         var configuration = Realm.Configuration()
         configuration.inMemoryIdentifier = "\(id)-credential"
@@ -182,6 +199,6 @@ public class RealmCredentialManagerFactory {
             configuration.fileURL = try FileManagerHelpers.applicationLibrary(for: name)?.appendingPathComponent("\(id).realm")
         }
 
-        return try RealmSchaftCredentialManager<Credential>(configuration)
+        return try RealmStrutCredentialManager<Credential>(configuration)
     }
 }

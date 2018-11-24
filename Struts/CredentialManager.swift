@@ -25,27 +25,29 @@ extension ShortCredential {
     }
 }
 
-public protocol SchaftCredentialManager {
+public protocol StrutCredentialManager {
 
     func list() -> Single<OnDemandArray<ShortCredential>>
 
     func observeList() -> Observable<OnDemandArray<ShortCredential>>
 
     func get(id: String) -> Maybe<ShortCredential>
+    
+    func observe(id: String) -> Observable<ShortCredential>
 }
 
-public protocol SchaftCredentialResolver {
+public protocol StrutCredentialResolver {
 
     associatedtype Credential
 
     func resolve(credential: ShortCredential) -> Maybe<Credential>
 }
 
-public protocol InternalSchaftCredentialManager: SchaftCredentialManager {
+public protocol InternalStrutCredentialManager: StrutCredentialManager {
 
     associatedtype Credential where Credential: Object & ShortCredential
 
-    associatedtype CredentialResolver: SchaftCredentialResolver where CredentialResolver.Credential == Credential
+    associatedtype CredentialResolver: StrutCredentialResolver where CredentialResolver.Credential == Credential
 
     var credentialResolver: CredentialResolver { get }
 

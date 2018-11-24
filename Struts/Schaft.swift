@@ -6,19 +6,19 @@
 import Foundation
 import RxSwift
 
-public protocol Schaft {
-
+public protocol Strut
+{
     func endPoint<E>(_ endPoint: E.Type) -> E? where E: EndPoint
 }
 
-extension Schaft {
+extension Strut {
 
     public func getEndPoint<E>(_ endPoint: E.Type) throws -> E where E: EndPoint {
         guard let realized: E = self.endPoint(endPoint) else {
             if let discovered: EndPoint = self.endPoint(endPoint) {
-                throw SchaftError.discoveryFailed(reason: "endPoint \(type(of: endPoint)) found with type \(type(of: discovered))")
+                throw StrutError.discoveryFailed(reason: "endPoint \(type(of: endPoint)) found with type \(type(of: discovered))")
             } else {
-                throw SchaftError.discoveryFailed(reason: ("endPoint \(type(of: endPoint)) is nil"))
+                throw StrutError.discoveryFailed(reason: ("endPoint \(type(of: endPoint)) is nil"))
             }
         }
 
@@ -26,19 +26,19 @@ extension Schaft {
     }
 }
 
-public protocol PrivilegedSchaft: Schaft {
+public protocol PrivilegedStrut: Strut {
 
     func locator<L>(_ locator: L.Type) -> L? where L: Locator
 }
 
-extension PrivilegedSchaft {
+extension PrivilegedStrut {
 
     public func getLocator<L>(_ locator: L.Type) throws -> L where L: Locator {
         guard let realized: L = self.locator(locator) else {
             if let discovered: Locator = self.locator(locator) {
-                throw SchaftError.discoveryFailed(reason: "locator \(type(of: locator)) found with type \(type(of: discovered))")
+                throw StrutError.discoveryFailed(reason: "locator \(type(of: locator)) found with type \(type(of: discovered))")
             } else {
-                throw SchaftError.discoveryFailed(reason: ("locator \(type(of: locator)) is nil"))
+                throw StrutError.discoveryFailed(reason: ("locator \(type(of: locator)) is nil"))
             }
         }
 
@@ -46,20 +46,20 @@ extension PrivilegedSchaft {
     }
 }
 
-class SchaftFacade<S>: Schaft where S: Schaft {
+class StrutFacade<S>: Strut where S: Strut {
 
-    let schaft: S
+    let strut: S
 
-    init(_ schaft: S) {
-        self.schaft = schaft
+    init(_ strut: S) {
+        self.strut = strut
     }
 
     func endPoint<E>(_ endPoint: E.Type) -> E? where E: EndPoint {
-        return schaft.endPoint(endPoint)
+        return strut.endPoint(endPoint)
     }
 }
 
-open class SchaftImpl: PrivilegedSchaft {
+open class StrutImpl: PrivilegedStrut {
 
     var endPoints = [String: EndPoint]()
 
@@ -90,42 +90,42 @@ open class SchaftImpl: PrivilegedSchaft {
     }
 }
 
-public protocol CoreSchaft: Schaft {
+public protocol CoreStrut: Strut {
 
-    var credentialManager: SchaftCredentialManager { get }
+    var credentialManager: StrutCredentialManager { get }
 
-    var shafts: [String: Schaft] { get }
+    var struts: [String: Strut] { get }
 }
 
-public protocol PrivilegedCoreSchaft: CoreSchaft {
+public protocol PrivilegedCoreStrut: CoreStrut {
 
 
 }
 
-class CoreSchaftFacade<S>: SchaftFacade<S>, PrivilegedCoreSchaft where S: CoreSchaft {
+class CoreStrutFacade<S>: StrutFacade<S>, PrivilegedCoreStrut where S: CoreStrut {
 
-    override init(_ schaft: S) {
-        super.init(schaft)
+    override init(_ strut: S) {
+        super.init(strut)
     }
 
-    var credentialManager: SchaftCredentialManager {
-        return schaft.credentialManager
+    var credentialManager: StrutCredentialManager {
+        return strut.credentialManager
     }
 
-    var shafts: [String: Schaft] {
-        return schaft.shafts
+    var struts: [String: Strut] {
+        return strut.struts
     }
 }
 
-open class CoreSchaftImpl<CredentialManager>: SchaftImpl, PrivilegedCoreSchaft
+open class CoreStrutImpl<CredentialManager>: StrutImpl, PrivilegedCoreStrut
 
-    where CredentialManager: InternalSchaftCredentialManager {
+    where CredentialManager: InternalStrutCredentialManager {
 
     public typealias Credential = CredentialManager.Credential
 
-    internal (set) public var shafts = [String: Schaft]()
+    internal (set) public var struts = [String: Strut]()
 
-    public var credentialManager: SchaftCredentialManager {
+    public var credentialManager: StrutCredentialManager {
         return internalCredentialManager
     }
     let internalCredentialManager: CredentialManager
@@ -135,6 +135,6 @@ open class CoreSchaftImpl<CredentialManager>: SchaftImpl, PrivilegedCoreSchaft
     }
 }
 
-public enum SchaftError: Error {
+public enum StrutError: Error {
     case discoveryFailed(reason: String)
 }

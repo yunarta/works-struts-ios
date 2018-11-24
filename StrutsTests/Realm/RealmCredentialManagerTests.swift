@@ -20,7 +20,7 @@ class RealmCredentialManagerTests: XCTestCase {
 
         let realm = try Realm(configuration: configuration)
         let credentialManager = try RealmCredentialManagerFactory(app: "Plant")
-            .createSchaftManager(id: "Beryl", for: RealmShortCredential.self, inMemory: true)
+            .createStrutManager(id: "Beryl", for: RealmShortCredential.self, inMemory: true)
 
         try realm.write {
             realm.add(RealmShortCredential(id: "manager-one", name: "Manager One"))
@@ -39,7 +39,7 @@ class RealmCredentialManagerTests: XCTestCase {
 
         let realm = try Realm(configuration: configuration)
         let credentialManager = try RealmCredentialManagerFactory(app: "Plant")
-            .createSchaftManager(id: "Beryl", for: RealmShortCredential.self, inMemory: true)
+            .createStrutManager(id: "Beryl", for: RealmShortCredential.self, inMemory: true)
 
         try realm.write {
             realm.add(RealmShortCredential(id: "manager-one", name: "Manager One"))
@@ -54,7 +54,7 @@ class RealmCredentialManagerTests: XCTestCase {
 
     func testGet() throws {
         let credentialManager = try RealmCredentialManagerFactory(app: "Plant")
-            .createSchaftManager(id: "Beryl", for: RealmShortCredential.self, inMemory: true)
+            .createStrutManager(id: "Beryl", for: RealmShortCredential.self, inMemory: true)
 
         XCTAssertNil(try credentialManager.insertOrReplace(RealmShortCredential(id: "manager-one", name: "Manager One")).toBlocking().first())
         XCTAssertEqual("manager-one", try credentialManager.get(id: "manager-one").toBlocking().first()?.id)
@@ -64,7 +64,7 @@ class RealmCredentialManagerTests: XCTestCase {
 
     func testAdd() throws {
         let credentialManager = try RealmCredentialManagerFactory(app: "Plant")
-            .createSchaftManager(id: "Beryl", for: RealmShortCredential.self, inMemory: true)
+            .createStrutManager(id: "Beryl", for: RealmShortCredential.self, inMemory: true)
         XCTAssertNil(try credentialManager.insertOrReplace(RealmShortCredential(id: "manager-one", name: "Manager One")).toBlocking().first())
         XCTAssertEqual(1, try credentialManager.list().toBlocking().first()?.count)
 
@@ -74,7 +74,7 @@ class RealmCredentialManagerTests: XCTestCase {
 
     func testDelete() throws {
         let credentialManager = try RealmCredentialManagerFactory(app: "Plant")
-            .createSchaftManager(id: "Beryl", for: RealmShortCredential.self, inMemory: true)
+            .createStrutManager(id: "Beryl", for: RealmShortCredential.self, inMemory: true)
         XCTAssertNil(try credentialManager.insertOrReplace(RealmShortCredential(id: "manager-one", name: "Manager One")).toBlocking().first())
         XCTAssertEqual(1, try credentialManager.list().toBlocking().first()?.count)
 
@@ -84,7 +84,7 @@ class RealmCredentialManagerTests: XCTestCase {
 
     func testResolve() throws {
         let credentialManager = try RealmCredentialManagerFactory(app: "Plant")
-            .createSchaftManager(id: "Beryl", for: RealmShortCredential.self, inMemory: true)
+            .createStrutManager(id: "Beryl", for: RealmShortCredential.self, inMemory: true)
         let credential = RealmShortCredential(id: "manager-one", name: "Manager One")
 
         XCTAssertNil(try credentialManager.insertOrReplace(credential).toBlocking().first())
