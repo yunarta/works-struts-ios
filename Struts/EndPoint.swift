@@ -5,9 +5,6 @@
 
 import Foundation
 
-open class EndPoint {
+open class EndPoint: StrutModule {
 
-    public init() {
-
-    }
 }

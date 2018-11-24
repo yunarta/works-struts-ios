@@ -30,8 +30,10 @@
 		CEB4E9C634F227643F7BF1AE /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB4EF0239840631882E1912 /* EndPoint.swift */; };
 		CEB4EA5902A24DC22A85022B /* FileManagerHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB4EE370C360A81A8C0D9BE /* FileManagerHelpers.swift */; };
 		CEB4EC55937756CB3FB83A58 /* OnDemandCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB4E062E4AA1E995316F7FF /* OnDemandCollection.swift */; };
+		CEB4EC9C193F8958690DCE45 /* StrutModules.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB4EC521FC45B6215C3EB36 /* StrutModules.swift */; };
 		CEB4ECA41313B63A27F459D1 /* RealmCredentialManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB4EA08785DDD152A03CC63 /* RealmCredentialManagerTests.swift */; };
-		CEB4EE9C425FA121F10B0794 /* Schaft.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB4EE3EEBDFDB57C0AFD1D9 /* Schaft.swift */; };
+		CEB4EE49774DBE8BE4F5373A /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB4E5937E0715530A51BDF1 /* Component.swift */; };
+		CEB4EE9C425FA121F10B0794 /* Strut.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB4EE3EEBDFDB57C0AFD1D9 /* Strut.swift */; };
 		CEB4EF99A0B589D607564917 /* RealmCredentialManagerSchaftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB4EEB50DDED6BD4ABB717B /* RealmCredentialManagerSchaftTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -61,13 +63,15 @@
 		99A59E7221497F7B00CD9BBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEB4E062E4AA1E995316F7FF /* OnDemandCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnDemandCollection.swift; sourceTree = "<group>"; };
 		CEB4E565AC049DB35D8F1DA8 /* Locator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Locator.swift; sourceTree = "<group>"; };
+		CEB4E5937E0715530A51BDF1 /* Component.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
 		CEB4E67EAA5DF5A38CAC4397 /* Plant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Plant.swift; sourceTree = "<group>"; };
 		CEB4E89B200B86B20EEE2B64 /* RealmCredentialManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmCredentialManager.swift; sourceTree = "<group>"; };
 		CEB4EA08785DDD152A03CC63 /* RealmCredentialManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmCredentialManagerTests.swift; sourceTree = "<group>"; };
 		CEB4EBFFDE118B2B388A5B4E /* CredentialManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CredentialManager.swift; sourceTree = "<group>"; };
+		CEB4EC521FC45B6215C3EB36 /* StrutModules.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StrutModules.swift; sourceTree = "<group>"; };
 		CEB4EC7CEE503A302D5DD1B4 /* RealmShortCredential.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmShortCredential.swift; sourceTree = "<group>"; };
 		CEB4EE370C360A81A8C0D9BE /* FileManagerHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerHelpers.swift; sourceTree = "<group>"; };
-		CEB4EE3EEBDFDB57C0AFD1D9 /* Schaft.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schaft.swift; sourceTree = "<group>"; };
+		CEB4EE3EEBDFDB57C0AFD1D9 /* Strut.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strut.swift; sourceTree = "<group>"; };
 		CEB4EEB50DDED6BD4ABB717B /* RealmCredentialManagerSchaftTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmCredentialManagerSchaftTests.swift; sourceTree = "<group>"; };
 		CEB4EF0239840631882E1912 /* EndPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -154,9 +158,11 @@
 				CEB4EF0239840631882E1912 /* EndPoint.swift */,
 				CEB4E565AC049DB35D8F1DA8 /* Locator.swift */,
 				CEB4E67EAA5DF5A38CAC4397 /* Plant.swift */,
-				CEB4EE3EEBDFDB57C0AFD1D9 /* Schaft.swift */,
+				CEB4EE3EEBDFDB57C0AFD1D9 /* Strut.swift */,
 				CEB4EC988A9A7459669AE0A4 /* Realm */,
 				CEB4EB3A7C7918D5E7BFEA74 /* Utilities */,
+				CEB4EC521FC45B6215C3EB36 /* StrutModules.swift */,
+				CEB4E5937E0715530A51BDF1 /* Component.swift */,
 			);
 			path = Struts;
 			sourceTree = "<group>";
@@ -339,13 +345,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEB4E0D8B8CB65482C3AFC52 /* Plant.swift in Sources */,
-				CEB4EE9C425FA121F10B0794 /* Schaft.swift in Sources */,
+				CEB4EE9C425FA121F10B0794 /* Strut.swift in Sources */,
 				CEB4E50A2FA5CD284CF05A94 /* CredentialManager.swift in Sources */,
 				CEB4E7863CF449AC8F8E3176 /* RealmCredentialManager.swift in Sources */,
 				CEB4EA5902A24DC22A85022B /* FileManagerHelpers.swift in Sources */,
 				CEB4EC55937756CB3FB83A58 /* OnDemandCollection.swift in Sources */,
 				CEB4E9C634F227643F7BF1AE /* EndPoint.swift in Sources */,
 				CEB4E0AB90ACF2334E59ACBC /* Locator.swift in Sources */,
+				CEB4EC9C193F8958690DCE45 /* StrutModules.swift in Sources */,
+				CEB4EE49774DBE8BE4F5373A /* Component.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

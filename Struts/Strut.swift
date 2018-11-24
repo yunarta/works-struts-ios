@@ -6,7 +6,7 @@
 import Foundation
 import RxSwift
 
-public protocol Strut
+public protocol Strut: class
 {
     func endPoint<E>(_ endPoint: E.Type) -> E? where E: EndPoint
 }
@@ -28,6 +28,7 @@ extension Strut {
 
 public protocol PrivilegedStrut: Strut {
 
+    func component<C>(_ component: C.Type) -> C? where C: Component
     func locator<L>(_ locator: L.Type) -> L? where L: Locator
 }
 
@@ -39,6 +40,18 @@ extension PrivilegedStrut {
                 throw StrutError.discoveryFailed(reason: "locator \(type(of: locator)) found with type \(type(of: discovered))")
             } else {
                 throw StrutError.discoveryFailed(reason: ("locator \(type(of: locator)) is nil"))
+            }
+        }
+
+        return realized
+    }
+
+    public func getComponent<C>(_ component: C.Type) throws -> C where C: Component {
+        guard let realized: C = self.component(component) else {
+            if let discovered: Component = self.component(component) {
+                throw StrutError.discoveryFailed(reason: "locator \(type(of: component)) found with type \(type(of: discovered))")
+            } else {
+                throw StrutError.discoveryFailed(reason: ("locator \(type(of: component)) is nil"))
             }
         }
 
@@ -63,6 +76,8 @@ open class StrutImpl: PrivilegedStrut {
 
     var endPoints = [String: EndPoint]()
 
+    var components = [String: Component]()
+
     var locators = [String: Locator]()
 
     public init() {
@@ -77,6 +92,18 @@ open class StrutImpl: PrivilegedStrut {
     public func addEndPoint<E>(_ endPoint: E.Type, impl: E) where E: EndPoint {
         let key = "\(type(of: endPoint))"
         endPoints[key] = impl
+        impl.dispatchOnCreate(strut: self)
+    }
+
+    public func component<C>(_ component: C.Type) -> C? where C: Component {
+        let key = "\(type(of: locator))"
+        return components[key] as? C
+    }
+
+    public func addComponent<C>(_ component: C.Type, impl: C) where C: Component {
+        let key = "\(type(of: component))"
+        components[key] = impl
+        impl.dispatchOnCreate(strut: self)
     }
 
     public func locator<L>(_ locator: L.Type) -> L? where L: Locator {
@@ -87,6 +114,7 @@ open class StrutImpl: PrivilegedStrut {
     public func addLocator<L>(_ locator: L.Type, impl: L) where L: Locator {
         let key = "\(type(of: locator))"
         locators[key] = impl
+        impl.dispatchOnCreate(strut: self)
     }
 }
 
@@ -98,7 +126,6 @@ public protocol CoreStrut: Strut {
 }
 
 public protocol PrivilegedCoreStrut: CoreStrut {
-
 
 }
 
@@ -137,4 +164,5 @@ open class CoreStrutImpl<CredentialManager>: StrutImpl, PrivilegedCoreStrut
 
 public enum StrutError: Error {
     case discoveryFailed(reason: String)
+    case illegalState
 }
