@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		991B6F4D2158088700D35168 /* EndPointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991B6F4C2158088700D35168 /* EndPointTests.swift */; };
+		9947928B21B59378000913E3 /* TestPlantCredentialManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB4E58D19B7F6B475B45B8D /* TestPlantCredentialManager.swift */; };
 		99695F9D21561DD3005D0610 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99695F9C21561DD3005D0610 /* RxBlocking.framework */; };
 		99A06DE92151682400AD9F0F /* SwifterSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99A06DE82151682400AD9F0F /* SwifterSwift.framework */; };
 		99A06DF321516FB100AD9F0F /* Struts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99A59E6E21497F7B00CD9BBD /* Struts.framework */; };
@@ -63,6 +64,7 @@
 		99A59E7221497F7B00CD9BBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEB4E062E4AA1E995316F7FF /* OnDemandCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnDemandCollection.swift; sourceTree = "<group>"; };
 		CEB4E565AC049DB35D8F1DA8 /* Locator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Locator.swift; sourceTree = "<group>"; };
+		CEB4E58D19B7F6B475B45B8D /* TestPlantCredentialManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestPlantCredentialManager.swift; sourceTree = "<group>"; };
 		CEB4E5937E0715530A51BDF1 /* Component.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
 		CEB4E67EAA5DF5A38CAC4397 /* Plant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Plant.swift; sourceTree = "<group>"; };
 		CEB4E89B200B86B20EEE2B64 /* RealmCredentialManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmCredentialManager.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				991B6F4C2158088700D35168 /* EndPointTests.swift */,
 				99A06DF921516FDD00AD9F0F /* PlantTenancyTests.swift */,
 				CEB4EAD2FC1156D0C33E7F0D /* Realm */,
+				CEB4E58D19B7F6B475B45B8D /* TestPlantCredentialManager.swift */,
 			);
 			path = StrutsTests;
 			sourceTree = "<group>";
@@ -334,6 +337,7 @@
 			files = (
 				99A06DFA21516FDD00AD9F0F /* PlantTenancyTests.swift in Sources */,
 				CEB4ECA41313B63A27F459D1 /* RealmCredentialManagerTests.swift in Sources */,
+				9947928B21B59378000913E3 /* TestPlantCredentialManager.swift in Sources */,
 				CEB4E51C65771E543AFE6E40 /* RealmShortCredential.swift in Sources */,
 				CEB4EF99A0B589D607564917 /* RealmCredentialManagerSchaftTests.swift in Sources */,
 				991B6F4D2158088700D35168 /* EndPointTests.swift in Sources */,

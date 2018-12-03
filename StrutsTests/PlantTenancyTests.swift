@@ -11,22 +11,9 @@ import XCTest
 
 class PlantTenancyTests: XCTestCase {
 
-    typealias CoreStrutImplWithRealm = CoreStrutImpl<RealmStrutCredentialManager<RealmShortCredential>>
-
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-
     func testDiscoverStrut() throws {
-        let factory = RealmCredentialManagerFactory(app: "Plant")
-        let plant = try PlantBuilder(credentialManager: factory.createPlantManager())
-            .add(resident: CoreStrutImplWithRealm(credentialManager: factory.createStrutManager(id: "app", for: RealmShortCredential.self)), withId: "app")
+        let plant = PlantBuilder(credentialManager: TestPlantCredentialManager())
+            .add(withId: "app")
             .build()
 
         // test get without type reference
@@ -42,13 +29,10 @@ class PlantTenancyTests: XCTestCase {
     }
 
     func testDiscoverSubStrut() throws {
-        let factory = RealmCredentialManagerFactory(app: "Plant")
-
-        let coreStrut = try CoreStrutImplWithRealm(credentialManager: factory.createStrutManager(id: "app", for: RealmShortCredential.self))
-        coreStrut.struts["1"] = StrutImpl()
-
-        let plant = try PlantBuilder(credentialManager: factory.createPlantManager())
-            .add(resident: coreStrut, withId: "app")
+        let plant = PlantBuilder(credentialManager: TestPlantCredentialManager())
+            .add(withId: "app") { core in
+                core.struts["1"] = PrivilegedStrutImpl()
+            }
             .build()
 
         let strut: CoreStrut? = plant.discover(core: .core(id: "app"))

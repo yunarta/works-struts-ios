@@ -5,12 +5,13 @@
 
 import Foundation
 
-open class StrutModule {
+open class Module {
 
     var strut: PrivilegedStrut {
         guard let strut = strutDelegate else {
             fatalError("endPoint(_:) has not been implemented")
         }
+
         return strut
     }
 
@@ -19,12 +20,11 @@ open class StrutModule {
     public init() {
     }
 
-    func dispatchOnCreate(strut: PrivilegedStrut) {
+    func onCreate(strut: PrivilegedStrut) {
         strutDelegate = strut
-        onCreate()
     }
 
-    open func onCreate() {
+    open func onStart() {
 
     }
 }

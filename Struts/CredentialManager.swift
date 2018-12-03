@@ -7,10 +7,6 @@ import Foundation
 import RealmSwift
 import RxSwift
 
-public protocol PlantCredentialManager {
-
-}
-
 public protocol ShortCredential {
 
     var id: String { get }
@@ -25,6 +21,10 @@ extension ShortCredential {
     }
 }
 
+public protocol PlantCredentialManager {
+
+}
+
 public protocol StrutCredentialManager {
 
     func list() -> Single<OnDemandArray<ShortCredential>>
@@ -36,22 +36,22 @@ public protocol StrutCredentialManager {
     func observe(id: String) -> Observable<ShortCredential>
 }
 
-public protocol StrutCredentialResolver {
-
-    associatedtype Credential
-
-    func resolve(credential: ShortCredential) -> Maybe<Credential>
-}
-
-public protocol InternalStrutCredentialManager: StrutCredentialManager {
-
-    associatedtype Credential where Credential: Object & ShortCredential
-
-    associatedtype CredentialResolver: StrutCredentialResolver where CredentialResolver.Credential == Credential
-
-    var credentialResolver: CredentialResolver { get }
-
-    func insertOrReplace(_ credential: Credential) -> Completable
-
-    func remove(_ credential: Credential) -> Single<Bool>
-}
+//public protocol StrutCredentialResolver {
+//
+//    associatedtype Credential
+//
+//    func resolve(credential: ShortCredential) -> Maybe<Credential>
+//}
+//
+//public protocol InternalStrutCredentialManager: StrutCredentialManager {
+//
+//    associatedtype Credential where Credential: Object & ShortCredential
+//
+//    associatedtype CredentialResolver: StrutCredentialResolver where CredentialResolver.Credential == Credential
+//
+//    var credentialResolver: CredentialResolver { get }
+//
+//    func insertOrReplace(_ credential: Credential) -> Completable
+//
+//    func remove(_ credential: Credential) -> Single<Bool>
+//}

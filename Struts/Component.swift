@@ -5,6 +5,6 @@
 
 import Foundation
 
-open class Component: StrutModule {
+open class Component: Module {
 
 }

@@ -8,8 +8,6 @@ import SwifterSwift
 
 public protocol Plant {
 
-    var credentialManager: PlantCredentialManager { get }
-
     func discover(strut: Discovery) -> Strut?
 }
 
@@ -27,33 +25,49 @@ public class PlantBuilder {
 
     var credentialManager: PlantCredentialManager
 
-    var residents = Dictionary<String, CoreStrut>()
+    var residents = [String: PrivilegedCoreStrutImpl]()
 
     public init(credentialManager: PlantCredentialManager) {
         self.credentialManager = credentialManager
     }
 
-    public func add<CS>(resident: CS, withId id: String) -> Self where CS: CoreStrut {
+    public func add(withId id: String, populate: (PrivilegedCoreStrutImpl) -> Void = { _ in }) -> Self {
         assert(false == residents.keys.contains(id))
-        residents[id] = CoreStrutFacade<CS>(resident)
+        let strut: PrivilegedCoreStrutImpl = PrivilegedCoreStrutImpl()
+        residents[id] = strut
+        populate(strut)
+        strut.start()
 
         return self
     }
 
     public func build() -> Plant {
         return PlantImpl(
-            credentialManager: credentialManager,
-            residents: residents
+                credentialManager: credentialManager,
+                residents: residents
         )
+    }
+}
+
+class PlantFacade : Plant  {
+
+    let delegate: Plant
+
+    public init(delegate: Plant) {
+        self.delegate = delegate
+    }
+
+    func discover(strut: Discovery) -> Strut? {
+        return self.delegate.discover(strut: strut)
     }
 }
 
 class PlantImpl: Plant {
 
-    let residents: [String: CoreStrut]
+    private let residents: [String: PrivilegedCoreStrutImpl]
     private(set) var credentialManager: PlantCredentialManager
 
-    init(credentialManager: PlantCredentialManager, residents: [String: CoreStrut]) {
+    init(credentialManager: PlantCredentialManager, residents: [String: PrivilegedCoreStrutImpl]) {
         self.credentialManager = credentialManager
         self.residents = residents
     }
@@ -64,37 +78,23 @@ class PlantImpl: Plant {
             let resident = residents[id]
             assert(resident != nil)
 
-            return resident
-
+            return resident.map { strut -> Strut in
+                return CoreStrutFacade(delegate: strut)
+            }
 
         case .strut(let owner, let id):
             let resident = residents[owner]
             assert(resident != nil)
 
-            return resident?.struts[id]
+            return resident?.struts[id].map { strut -> Strut in
+                return StrutFacade(delegate: strut)
+            }
         }
     }
-
-
-//    func get<S>(strut: Discovery, withType of: S.Type) throws -> S where S: Strut {
-//        guard let discovery: Strut = discover(strut: strut) else {
-//            throw PlantError.discoveryFailed(reason: "not struts with discovery \(strut) can be found")
-//        }
-//
-//        guard let instance = discovery as? S else {
-//            throw PlantError.discoveryFailed(reason: "struts with discovery \(strut) is no \(S.self), but instead \(type(of: discovery))")
-//        }
-//
-//        return instance
-//    }
 }
 
 public enum Discovery {
 
     case core(id: String)
     case strut(owner: String, id: String)
-}
-
-public enum PlantError: Error {
-    case discoveryFailed(reason: String)
 }

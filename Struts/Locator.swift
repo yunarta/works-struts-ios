@@ -5,6 +5,6 @@
 
 import Foundation
 
-open class Locator: StrutModule {
+open class Locator: Module {
 
 }
